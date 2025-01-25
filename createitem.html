@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Item</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <div class="containerCreateAcc">
+    <form id="itemForm">
+      <table class="createItem">
+        <caption>Add New Item</caption>
+        <tr>
+          <td><label for="item_name">Item Name:</label></td>
+          <td><input type="text" id="item_name" name="item_name" required></td>
+        </tr>
+        <tr>
+          <td><label for="item_type">Item Type:</label></td>
+          <td>
+            <select id="item_type" name="item_type" required>
+              <option value="" selected disabled>Select Item Type</option>
+              <option value="laptop">Laptop</option>
+              <option value="phone">Phone</option>
+              <option value="accessories">Accessories</option>
+              <option value="tablet">Tablet</option>
+            </select>
+          </td>
+        </tr>
+        <tr>
+          <td><label for="item_quantity">Item Quantity:</label></td>
+          <td><input type="number" id="item_quantity" name="item_quantity" min = "1" required></td>
+        </tr>
+        <tr>
+          <td><label for="item_price">Item Price:</label></td>
+          <td><input type="number" id="item_price" name="item_price" step="0.01" min = "0.01" required></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td><button type="submit">Add New Item</button><br></td>
+        </tr>
+      </table>
+    </form>
+  </div>
+  
+  <div id="result"></div>
+
+  <script>
+    // Logout and clear data from local storage
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+    document.getElementById('itemForm').addEventListener('submit', createItem);
+  
+    async function createItem(event) {
+      event.preventDefault();
+  
+      const form = event.target;
+      const item_name = form.elements.item_name.value;
+      const item_type = form.elements.item_type.value;
+      const item_quantity = parseInt(form.elements.item_quantity.value);
+      const item_price = parseFloat(form.elements.item_price.value);
+  
+      const payload = { item_name, item_type, item_quantity, item_price };
+  
+      try {
+        const response = await fetch('http://localhost:3000/api/item', {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          alert("Item created successfully!");
+          location.reload();
+        } else {
+          const errorData = await response.json();
+          const errorMessage = errorData.errors[0].msg;
+          alert(`Error creating item: ${errorMessage}`);
+          location.reload();
+        }
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while creating the item.');
+        location.reload();
+      }
+    }
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Delete Item</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <table class="delete-func">
+    <caption>Delete Item</caption>
+    <tr>
+      <td>
+        <button onclick="window.history.back()" class="go-back">
+          <img src="assets/back.png" width="20" height="20">&nbsp&nbspMain Menu
+        </button>
+      </td>
+      <td>
+        <form id="deleteForm">
+          <input type="text" id="itemIdInput" placeholder="Enter Item ID">
+          <button type="submit" class="search-stock">Search</button>
+        </form>
+      </td>
+      <td></td>
+    </tr>
+  </table>
+
+  <table id="DeleteitemTable">
+    <thead>
+      <tr class="item-title">
+        <th>Item ID</th>
+        <th>Item Name</th>
+        <th>Item Type</th>
+        <th>Item Quantity</th>
+        <th>Item Price</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+  </table>
+
+  <script>
+    // Logout and clear data from local storage
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    window.addEventListener('DOMContentLoaded', (event) => {
+        const apiUrl = 'http://localhost:3000/api/item/';
+
+        const searchForm = document.getElementById('deleteForm');
+        const itemIdInput = document.getElementById('itemIdInput');
+        const table = document.getElementById('DeleteitemTable');
+
+        deleteForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+            deleteItem();
+        });
+
+        function deleteItem() {
+            const itemId = itemIdInput.value.trim();
+            if (itemId !== '') {
+                if (confirm('Are you sure you want to delete this item?')) {
+                    const url = `http://localhost:3000/api/item/delete/${itemId}`;
+                    const xhr = new XMLHttpRequest();
+                    xhr.onreadystatechange = function () {
+                        if (this.readyState === 4) {
+                            if (this.status === 200) {
+                                alert('Item deleted successfully');
+                                // Optionally redirect or perform any other action upon successful deletion
+                                makeRequest(apiUrl); // Reload data after deletion
+                            } else {
+                                alert('Failed to delete item');
+                            }
+                        }
+                    };
+                    xhr.open('DELETE', url, true);
+                    xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Add authorization header
+                    xhr.send();
+                }
+            } else {
+                alert('Please enter a valid item ID');
+            }
+        }
+
+        function makeRequest(url) {
+            const xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (this.readyState === 4) {
+                    if (this.status === 200) {
+                        const data = JSON.parse(this.responseText);
+                        updateTable(data);
+                    } else if (this.status === 404) {
+                        clearTableRows();
+                        displayErrorMessage();
+                    } else {
+                        clearTableRows();
+                        displayNoResultsMessage();
+                    }
+                }
+            };
+            xhr.open('GET', url, true);
+            xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Add authorization header
+            xhr.send();
+        }
+
+        function displayNoResultsMessage() {
+            alert('No search results found.');
+        }
+
+        function displayErrorMessage() {
+            alert('An error occurred while fetching data.');
+            location.reload();
+        }
+
+        function clearTableRows() {
+            const rows = table.getElementsByTagName('tr');
+            while (rows.length > 1) {
+                table.deleteRow(1);
+            }
+        }
+
+        function updateTable(data) {
+            clearTableRows();
+            if (Array.isArray(data)) {
+                data.forEach((row) => {
+                    const newRow = table.insertRow();
+                    newRow.insertCell().textContent = row.item_id;
+                    newRow.insertCell().textContent = row.item_name;
+                    newRow.insertCell().textContent = row.item_type;
+                    newRow.insertCell().textContent = row.item_quantity;
+                    newRow.insertCell().textContent = row.item_price;
+
+                    const deleteButton = document.createElement('button');
+                    deleteButton.textContent = 'Delete';
+                    deleteButton.className = 'delete-button'; // Add CSS class to the button
+                    deleteButton.addEventListener('click', () => {
+                        itemIdInput.value = row.item_id; // Set item ID in the input field
+                        deleteItem();
+                    });
+                    newRow.insertCell().appendChild(deleteButton);
+                });
+            } else {
+                const newRow = table.insertRow();
+                newRow.insertCell().textContent = data.item_id;
+                newRow.insertCell().textContent = data.item_name;
+                newRow.insertCell().textContent = data.item_type;
+                newRow.insertCell().textContent = data.item_quantity;
+                newRow.insertCell().textContent = data.item_price;
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Delete';
+                deleteButton.addEventListener('click', () => {
+                    itemIdInput.value = data.item_id; // Set item ID in the input field
+                    deleteItem();
+                });
+                newRow.insertCell().appendChild(deleteButton);
+            }
+        }
+
+        makeRequest(apiUrl);
+    });
+
+
+
+
+
+    
+
+    // function deleteItem() {
+    //   const itemId = document.getElementById("itemIdInput").value.trim();
+    //   if (itemId !== '') {
+    //     if (confirm('Are you sure you want to delete this item?')) {
+    //       const url = `http://localhost:3000/api/item/delete/${itemId}`;
+    //       const xhr = new XMLHttpRequest();
+    //       xhr.onreadystatechange = function() {
+    //         if (this.readyState === 4) {
+    //           if (this.status === 200) {
+    //             alert('Item deleted successfully');
+    //             // Optionally redirect or perform any other action upon successful deletion
+    //           } else {
+    //             alert('Failed to delete item');
+    //           }
+    //         }
+    //       };
+    //       xhr.open('DELETE', url, true);
+    //       xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Add authorization header
+    //       xhr.send();
+    //     }
+    //   } else {
+    //     alert('Please enter a valid item ID');
+    //   }
+    // }
+  </script>
+</body>
+</html>

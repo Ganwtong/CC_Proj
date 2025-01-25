@@ -1,0 +1,26 @@
+{
+  "name": "tse_sales",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "debug": "nodemon server.js ",
+    "start": "node server.js ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tan Juan Kai (1191103363), Lim Zhe Yu (1201101486), Jordan Chew Ding Jian (1191102760), Tsang Xin Yi (1201101092)",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "jsonwebtoken": "^9.0.0",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.1",
+    "node-localstorage": "^2.2.1",
+    "nodemon": "^2.0.22",
+    "sequelize": "^6.31.1"
+  }
+}

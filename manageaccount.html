@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Account Data</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <form id="searchForm">
+    <table class="search-func">
+      <caption>User Account Management</caption>
+      <tr>
+        <td>
+          <button onclick="window.history.back()" class="go-back">
+            <img src="assets/back.png" width="20" height="20">&nbsp&nbspMain Menu
+          </button>
+        </td>
+        <td>
+          <form id="searchForm">
+            <input type="text" id="accountIdInput" placeholder="Enter Account ID">
+            <button class="search-acc" type="submit">Search</button>
+          </form>
+        </td>
+        <td></td>
+      </tr>
+    </table>
+  </form>
+
+  <table id="accountTable">
+    <thead>
+      <tr class="acc-title">
+        <th style="width: 15%;">Account ID</th>
+        <th style="width: 40%">Name</th>
+        <th style="width: 20%">Email</th>
+        <th style="width: 12%">Status</th>
+        <th style="width: 13%">Action</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <script>
+    // Logout and clear data from local storage
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+    window.addEventListener('DOMContentLoaded', (event) => {
+      const apiUrl = 'http://localhost:3000/api/account/';
+
+      const searchForm = document.getElementById('searchForm');
+      const accountIdInput = document.getElementById('accountIdInput');
+      const table = document.getElementById('accountTable');
+
+      searchForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const accountId = accountIdInput.value.trim();
+        if (accountId !== '') {
+          clearTableRows();
+          const searchUrl = apiUrl + accountId;
+          makeRequest(searchUrl);
+        } else {
+          makeRequest(apiUrl); // Load all data when the search input is empty
+          location.reload();
+        }
+      });
+
+      function makeRequest(url) {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState === 4) {
+            if (this.status === 200) {
+              const data = JSON.parse(this.responseText);
+              updateTable(data);
+            } else if (this.status === 404){
+              clearTableRows();
+              displayErrorMessage();
+            } else{
+              clearTableRows();
+              displayNoResultsMessage();
+            }
+          }
+        };
+        xhr.open('GET', url, true);
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Add authorization header
+        xhr.send();
+      }
+
+      function displayNoResultsMessage() {
+        alert('No search results found.');
+      }
+
+      function displayErrorMessage() {
+        alert('An error occurred while fetching data.');
+        location.reload();
+      }
+
+      function clearTableRows() {
+        const rows = table.getElementsByTagName('tr');
+        while (rows.length > 1) {
+          table.deleteRow(1);
+        }
+      }
+
+      function updateTable(data) {
+        if (data || data.length) {
+
+          if (data.length) {
+            data.forEach((row) => {
+              const newRow = table.insertRow();
+
+              //newRow.insertCell().textContent = row.account_id;
+              const AccID = newRow.insertCell();
+              AccID.textContent = row.account_id;
+              AccID.classList.add('acc-id');
+
+              newRow.insertCell().textContent = row.name;
+
+              //newRow.insertCell().textContent = row.email;
+              const emailCol = newRow.insertCell();
+              emailCol.textContent = row.email;
+              emailCol.classList.add('email');
+
+              //newRow.insertCell().textContent = row.status;
+              const statusCol = newRow.insertCell();
+              statusCol.textContent = row.status;
+              statusCol.classList.add('status');
+
+              const updateButton = document.createElement('button');
+              updateButton.textContent = 'Update';
+              updateButton.classList.add('update-button'); // (For CSS purpose) Add class to the update button
+              updateButton.addEventListener('click', () => {
+                const accountId = row.account_id;
+                const status = row.status === 0 ? 1 : 0;
+                updateAccount(accountId, status);
+              });
+              //newRow.insertCell().appendChild(updateButton);
+              const updateBtn = newRow.insertCell();
+              updateBtn.appendChild(updateButton);
+            });
+          } else {
+            const newRow = table.insertRow();
+            //newRow.insertCell().textContent = data.account_id;
+            const AccID = newRow.insertCell();
+            AccID.textContent = data.account_id;
+            AccID.classList.add('acc-id');
+            
+            newRow.insertCell().textContent = data.name;
+
+            //newRow.insertCell().textContent = data.email;
+            const emailCol = newRow.insertCell();
+            emailCol.textContent = data.email;
+            emailCol.classList.add('email');
+            
+            //newRow.insertCell().textContent = data.status;
+            const statusCol = newRow.insertCell();
+            statusCol.textContent = data.status;
+            statusCol.classList.add('status');
+
+            const updateButton = document.createElement('button');
+            updateButton.textContent = 'Update';
+            updateButton.classList.add('update-button'); // (For CSS purpose) Add class to the update button
+            updateButton.addEventListener('click', () => {
+              const accountId = data.account_id;
+              const status = data.status === 0 ? 1 : 0;
+              updateAccount(accountId, status);
+            });
+            //newRow.insertCell().appendChild(updateButton);
+            const updateBtn = newRow.insertCell();
+            updateBtn.appendChild(updateButton);
+          }
+        }
+      }
+
+      function updateAccount(id, status) {
+        const apiUrl = `http://localhost:3000/api/account/${id}`;
+
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (this.readyState === 4) {
+            if (this.status === 200) {
+              const updatedAccount = JSON.parse(this.responseText);
+              console.log(updatedAccount); // Do something with the updated account data
+              location.reload(); // Refresh the page after the update
+            } else {
+              const error = JSON.parse(this.responseText);
+              console.error(error); // Handle the error response
+            }
+          }
+        };
+        xhr.open('PUT', apiUrl, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('Authorization', `Bearer ${token}`); // Add authorization header
+        xhr.send(JSON.stringify({ status }));
+
+        // Update the status in the table immediately
+        const statusCell = newRow.cells[3];
+        statusCell.textContent = status;
+      }
+
+      makeRequest(apiUrl);
+    });
+  </script>
+</body>
+</html>

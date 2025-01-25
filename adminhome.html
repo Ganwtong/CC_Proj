@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin Panel</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+  <!-- Header -->
+  <script>
+    // Check if the token exists in localStorage
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+  </script>
+
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <table class="adminHome">
+    <tr>
+      <th>
+        <button type="button" onclick="window.location.href='createaccount.html'">
+          <img src="assets/profile-user.png" width="80" height="80"><br>Create User and Admin Account
+        </button>
+      </th>
+      <th>
+        <button type="button" onclick="window.location.href='manageaccount.html'">
+          <img src="assets/edit.png" width="80" height="80"><br>User Account Management
+        </button>
+      </th>
+      <th>
+        <button type="button" onclick="window.location.href='manageitem.html'">
+          <img src="assets/stock.png" width="80" height="80"><br>Item Managenent (General Usage)
+        </button>
+      </th>
+      <th>
+        <button type="button" onclick="window.location.href='deleteitem.html'">
+          <img src="assets/delete_item.png" width="80" height="80"><br> Delete Item (Admin Only)
+        </button>
+      </th>
+    </tr>
+  </table>
+</body>
+</html>

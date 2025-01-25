@@ -1,0 +1,1067 @@
+@charset "utf-8";
+@import url('https://fonts.googleapis.com/css?family=Ubuntu');
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body{
+	background: rgb(250,255,209);
+	background: linear-gradient(-90deg, rgba(250,255,209,1) 0%, rgba(161,255,206,1) 100%);
+}
+
+/* Navigation Bar */
+.navbar{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 10px;
+	background: rgb(52,143,80);
+	background: linear-gradient(-90deg, rgba(52,143,80,1) 0%, rgba(86,180,211,1) 100%);
+	position: sticky;
+	top: 0;
+}
+
+.logo{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	font-size: 24px;
+    font-weight: bold;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.logo a{
+    display: flex;
+    align-items: center;
+	color: white;
+    letter-spacing: 2px;
+	text-decoration: none;
+}
+
+.logo img{
+	float: left;
+	width: 30px;
+	height: 30px;
+}
+
+.navbar-func, .navbar-func a{
+	color: white;
+	font-weight: bold;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+}
+
+/* Login Page */
+.login{
+	width: 60%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	border-radius: 10px;
+	background: rgb(226,226,226);
+	background: radial-gradient(circle, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.login th{
+	padding: 40px;
+}
+
+.login-user{
+	padding: 40px;
+	border-right: 1px solid black;
+}
+
+.login-options {
+	list-style: none;
+	padding: 0;
+	font-size: 20px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: 10px;
+	margin: 0;
+}
+  
+.userlogin_li,
+.adminlogin_li {
+	display: block;
+	text-align: center;
+	margin-top: 10px;
+	cursor: pointer;
+}
+  
+.userlogin_li img,
+.adminlogin_li img {
+	display: block;
+	margin: 0 auto;
+}
+
+.login input{
+	width: 90%;
+	padding: 10px 10px;
+	margin-bottom: 20px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 5px;
+	font-size: 18px;
+}
+
+.btn{
+	width: 90%;
+	background-color: #006400;
+	border: none;
+	border-radius: 5px;
+	color: white;
+	height: 40px;
+	font-size: 18px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+}
+
+.btn:hover{
+	background: #2E8B57
+}
+
+/* Admin Home */
+.adminHome{
+	/* border: 1px solid black; */
+	width: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: -1;
+}
+
+.adminHome th{
+	width: 25%;
+	padding: 5px;
+}
+
+.adminHome button{
+	background: rgb(226,226,226);
+	background: radial-gradient(circle, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+	padding: 80px 30px;
+	font-size: 28px;
+	font-weight: bold;
+	border-radius: 20px;
+	border: none;
+	line-height: 40px;
+}
+
+.adminHome button:hover{
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.adminHome button img{
+	padding: 10px;
+}
+
+/* Create User Account */
+.createAccount{
+	/* border: 1px solid black; */
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 20px;
+}
+
+.createAccount caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.createAccount td:nth-child(1){
+	width: 23%;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+	padding: 15px;
+}
+
+.createAccount td:nth-child(2){
+	text-align: left;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+}
+
+.createAccount input{
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+.createAccount select{
+	width: 30%;
+	padding: 8px;
+	font-size: 14px;
+}
+
+.createAccount button{
+	width: 100%;
+	padding: 8px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: none;
+	background:	#006400;
+	color: white;
+}
+
+.createAccount button:hover{
+	background: #2E8B57;
+}
+
+/* Admin: User Account Management */
+.search-func{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+}
+
+.search-func caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.search-func td:nth-child(1){
+	width: 25%;
+	text-align: left;
+	border: none;
+}
+
+.search-func td:nth-child(2){
+	width: 50%;
+	text-align: center;
+	border: none;
+}
+
+.search-func td:nth-child(3){
+	width: 25%;
+	text-align: right;
+	border: none;
+}
+
+.search-func input{
+	width: 70%;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+.search-acc{
+	width: 20%;
+	padding: 8px;
+	margin-left: 10px;
+}
+
+#accountTable{
+	width: 90%;
+	margin: 30px auto;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+.acc-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#accountTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.acc-id{
+	text-align: center;
+}
+
+.email{
+	text-align: center;
+}
+
+.status{
+	text-align: center;
+}
+
+.update-button{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+	padding: 0px 10px;
+}
+
+/* Item Sales Report */
+#itemSalesTable{
+	width: 90%;
+	margin: 30px auto;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+#itemSalesTable caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.item-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#itemSalesTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+#itemSalesTable td:nth-child(2){
+	text-align: center;
+	text-transform: capitalize;
+}
+
+#itemSalesTable td:nth-child(3){
+	text-align: center;
+}
+
+/* Sales Performance */
+#salesTable{
+	width: 90%;
+	margin: 30px auto;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+#salesTable caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin-bottom: 20px;
+}
+
+.sales-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#salesTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+#salesTable td:nth-child(2){
+	text-align: center;
+}
+
+#salesTable td:nth-child(3){
+	text-align: center;
+}
+
+/* User Home */
+.userHome{
+	/* border: 1px solid black; */
+	width: 90%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	z-index: -1;
+}
+
+.userHome th{
+	width: 33%;
+	/* border: 1px solid black; */
+	padding: 5px;
+}
+
+.userHome button{
+	width: 100%;
+	background: rgb(226,226,226);
+	background: radial-gradient(circle, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+	padding: 80px 30px;
+	font-size: 28px;
+	font-weight: bold;
+	border-radius: 20px;
+	border: none;
+	line-height: 40px;
+}
+
+.userHome button:hover{
+	box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+.userHome button img{
+	padding: 10px;
+}
+
+/* Customer Management */
+.cust-func{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+}
+
+.cust-func caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.cust-func td:nth-child(1){
+	width: 25%;
+	text-align: left;
+	border: none;
+}
+
+.cust-func td:nth-child(2){
+	width: 50%;
+	text-align: center;
+	border: none;
+}
+
+.cust-func td:nth-child(3){
+	width: 25%;
+	text-align: right;
+	border: none;
+}
+
+.cust-func input{
+	width: 70%;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+.search-cust{
+	width: 20%;
+	padding: 8px;
+	margin-left: 10px;
+}
+
+.create-cust{
+	width: 60%;
+	padding: 8px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.create-cust img{
+	float: left;
+}
+
+#customerTable{
+	width: 90%;
+	margin: 30px auto;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+.cust-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#customerTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+#customerTable td:nth-child(1){
+	text-align: center;
+}
+
+#customerTable td:nth-child(3){
+	text-align: center;
+}
+
+#customerTable td:nth-child(4){
+	text-align: center;
+}
+
+#customerTable td:nth-child(5){
+	text-align: center;
+}
+
+/* Create Customer */
+.createCust{
+	/* border: 1px solid black; */
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 20px;
+}
+
+.createCust caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.createCust td:nth-child(1){
+	width: 25%;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+	padding: 15px;
+}
+
+.createCust td:nth-child(2){
+	text-align: left;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+}
+
+.createCust input{
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+.createCust button{
+	width: 100%;
+	padding: 8px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: none;
+	background:	#006400;
+	color: white;
+}
+
+.createCust button:hover{
+	background: #2E8B57;
+}
+
+/* Transaction */
+.transaction-func{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	border: none;
+}
+
+.transaction-func caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.transaction-func td:nth-child(1){
+	width: 25%;
+	text-align: left;
+	border: none;
+}
+
+.transaction-func td:nth-child(2){
+	width: 50%;
+	text-align: center;
+	border: none;
+}
+
+.transaction-func td:nth-child(3){
+	width: 25%;
+	text-align: right;
+	border: none;
+}
+
+.transaction-func input{
+	width: 70%;
+	padding: 8px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 3px;
+}
+
+.transaction{
+	width: 90%;
+	margin: 30px auto;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+.transaction-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+.transaction th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.transaction td:nth-child(1){
+	width: 40%;
+	text-align: center;
+}
+
+.transaction td:nth-child(2){
+	width: 40%;
+	text-align: center;
+}
+
+.transaction td:nth-child(3){
+	width: 20%;
+	text-align: center;
+}
+
+#invoiceBody input{
+	width: 70%;
+	padding: 5px;
+	box-sizing: border-box;
+	border: 1px solid black;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.delete-button{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+	padding: 0px 10px;
+}
+
+.transaction-Btn{
+	width: 40%;
+	margin-left: auto;
+	margin-right: auto;
+	/* border: 1px solid black; */
+}
+
+#addNewRowBtn{
+	width: 90%;
+	font-size: 14px;
+	font-weight: bold;
+	border: none;
+	border-radius: 3px;
+	padding: 8px;
+	margin: 3px;
+	background-color:#000080;
+	color: white;
+}
+
+#addNewRowBtn:hover{
+	background-color: #483D8B;
+	color: white;
+}
+
+.submit-trans{
+	width: 90%;
+	padding: 8px;
+	margin: 3px;
+	font-size: 14px;
+	border-radius: 5px;
+	border: none;
+	background:	#006400;
+	color: white;
+}
+
+.submit-trans:hover{
+	background: #2E8B57;
+}
+
+/* Stock Management */
+.stock-func{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+  }
+  
+  .stock-func caption{
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px;
+  }
+  
+  .stock-func td:nth-child(1){
+    width: 25%;
+    text-align: left;
+    border: none;
+  }
+  
+  .stock-func td:nth-child(2){
+    width: 50%;
+    text-align: center;
+    border: none;
+  }
+  
+  .stock-func td:nth-child(3){
+    width: 25%;
+    text-align: right;
+    border: none;
+  }
+  
+  .stock-func input{
+    width: 70%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+  
+  .search-stock{
+    width: 20%;
+    padding: 8px;
+    margin-left: 10px;
+  }
+  
+  .create-stock{
+    width: 50%;
+    padding: 8px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  
+  .create-stock img{
+    float: left;
+  }
+
+#itemTable{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+#itemTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.item-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#itemTable input{
+	width: 100%;
+}
+
+#itemTable td:nth-child(1){
+    width: 8%;
+    text-align: center;
+}
+
+#itemTable td:nth-child(2){
+    width: 20%;
+    text-align: left;
+}
+
+#itemTable td:nth-child(3){
+    width: 15%;
+    text-align: center;
+	text-transform: capitalize;
+}
+
+#itemTable td:nth-child(4){
+    width: 13%;
+    text-align: center;
+}
+
+#itemTable td:nth-child(5){
+    width: 12%;
+    text-align: center;
+}
+
+#itemTable td:nth-child(6){
+    width: 12%;
+    text-align: center;
+}
+
+#itemTable td:nth-child(7){
+    width: 10%;
+    text-align: center;
+}
+
+#itemTable td:nth-child(8){
+    width: 10%;
+    text-align: center;
+}
+
+.update-stock{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+	padding: 0px 10px;
+}
+
+/* Create Item */
+.createItem{
+	/* border: 1px solid black; */
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 20px;
+}
+
+.createItem caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.createItem td:nth-child(1){
+	width: 20%;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+	padding: 15px;
+}
+
+.createItem td:nth-child(2){
+	text-align: left;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+}
+
+.createItem input{
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+.createItem button{
+	width: 100%;
+	padding: 8px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: none;
+	background:	#006400;
+	color: white;
+}
+
+.createItem button:hover{
+	background: #2E8B57;
+}
+
+.createItem select{
+	width: 30%;
+	padding: 8px;
+	font-size: 14px;
+}
+
+/* Update Password */
+.updatePass{
+	/* border: 1px solid black; */
+	width: 70%;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	font-size: 20px;
+}
+
+.updatePass caption{
+	font-size: 32px;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.updatePass td:nth-child(1){
+	width: 25%;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+	padding: 15px;
+}
+
+.updatePass td:nth-child(2){
+	text-align: left;
+	/* border: 1px solid black; */
+	border: none;
+	font-weight: bold;
+}
+
+.updatePass input{
+	width: 100%;
+	padding: 8px;
+	border-radius: 5px;
+	border: none;
+}
+
+.updatePass button{
+	width: 100%;
+	padding: 8px;
+	font-size: 20px;
+	border-radius: 5px;
+	border: none;
+	background:	#006400;
+	color: white;
+}
+
+.updatePass button:hover{
+	background: #2E8B57;
+}
+
+/* Back to Main Menu button */
+.go-back{
+	width: 55%;
+	padding: 8px;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.go-back img{
+	float: left;
+}
+
+/* Delete Item */
+.delete-func{
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    border: none;
+  }
+  
+  .delete-func caption{
+    font-size: 32px;
+    font-weight: bold;
+    margin: 20px;
+  }
+
+  .delete-func td:nth-child(1){
+    width: 25%;
+    text-align: left;
+    border: none;
+  }
+  
+  .delete-func td:nth-child(2){
+    width: 50%;
+    text-align: center;
+    border: none;
+  }
+  
+  .delete-func td:nth-child(3){
+    width: 25%;
+    text-align: right;
+    border: none;
+  }
+
+  .delete-func input{
+    width: 70%;
+    padding: 8px;
+    box-sizing: border-box;
+    border: 1px solid black;
+    border-radius: 3px;
+  }
+
+  .search-stock{
+    width: 20%;
+    padding: 8px;
+    margin-left: 10px;
+  }
+
+  #DeleteitemTable{
+	width: 90%;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 20px;
+	border: 1.5px solid black;
+	border-collapse: collapse;
+	background: rgb(226,226,226);
+	background: linear-gradient(-90deg, rgba(226,226,226,1) 0%, rgba(201,214,255,1) 100%);
+}
+
+#DeleteitemTable th, td, tr{
+	border: 1px solid black;
+	padding: 5px;
+}
+
+.item-title{
+	color: white;
+	background: rgb(36,59,85);
+	background: linear-gradient(-90deg, rgba(36,59,85,1) 0%, rgba(20,30,48,1) 100%);
+}
+
+#DeleteitemTable input{
+	width: 100%;
+}
+
+#DeleteitemTable td:nth-child(1){
+    width: 8%;
+    text-align: center;
+}
+
+#DeleteitemTable td:nth-child(2){
+    width: 20%;
+    text-align: left;
+}
+
+#DeleteitemTable td:nth-child(3){
+    width: 15%;
+    text-align: center;
+	text-transform: capitalize;
+}
+
+#DeleteitemTable td:nth-child(4){
+    width: 13%;
+    text-align: center;
+}
+
+#DeleteitemTable td:nth-child(5){
+    width: 12%;
+    text-align: center;
+}
+
+#DeleteitemTable td:nth-child(6){
+    width: 12%;
+    text-align: center;
+}
+
+.delete-button{
+	display: block;
+    margin: 0 auto;
+    text-align: center;
+	padding: 0px 10px;
+	background-color: firebrick;
+	color: white;
+}

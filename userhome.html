@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Panel</title>
+  <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <table class="userHome">
+    <tr>
+      <th>
+        <button type="button" onclick="window.location.href='manageitem.html'">
+          <img src="assets/stock.png" width="80" height="80"><br>Stock Management
+        </button>
+      </th>
+    </tr>
+  </table>
+
+  <script>
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+
+    // Logout and clear data from local storage
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+  </script>
+</body>
+</html>

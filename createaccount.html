@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Create Account</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+  </script>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        <img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+    <div class="navbar-func">
+      <a href="#" onclick="updatePassword()">Update Password</a>
+      <span>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</span>
+      <a href="#" onclick="logout()">Log Out&nbsp&nbsp</a>
+    </div>
+  </nav>
+
+  <form id="createAccountForm">
+    <table class="createAccount">
+      <caption>Create Account</caption>
+      <tr>
+        <td><label for="name">Name:</label></td>
+        <td><input type="text" id="name" name="name" required></td>
+      </tr>
+      <tr>
+        <td><label for="email">Email:</label></td>
+        <td><input type="email" id="email" name="email" required></td>
+      </tr>
+      <tr>
+        <td><label for="password">Password:</label></td>
+        <td><input type="password" id="password" name="password" required></td>
+      </tr>
+      <tr>
+        <td><label for="confirm_password">Confirm Password:</label></td>
+        <td><input type="password" id="confirm_password" name="confirm_password" required></td>
+      </tr>
+      <tr>
+        <td><label for="type">Account Type:</label></td>
+        <td>
+          <select id="type" name="type">
+            <option value="" selected disabled>Please Select</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><button type="submit">Create Account</button><br></td>
+      </tr>
+    </table>
+  </form>
+  
+  <div id="result"></div>
+  <div id="result"></div>
+
+  <script>
+    // Logout and clear data from local storage
+    function logout() {
+      localStorage.removeItem("token");
+      window.location.href = "login.html";
+    }
+
+    // Update password
+    function updatePassword() {
+      window.location.href = "updatepassword.html";
+    }
+    
+    const token = localStorage.getItem("token");
+    if (!token) {
+      window.location.href = "login.html";
+    }
+    document.getElementById('createAccountForm').addEventListener('submit', createAccount);
+  
+    async function createAccount(event) {
+      event.preventDefault();
+  
+      const form = event.target;
+      const name = form.elements.name.value;
+      const email = form.elements.email.value;
+      const password = form.elements.password.value;
+      const confirm_password = form.elements.confirm_password.value;
+      const type = form.elements.type.value;
+  
+      if (password !== confirm_password) {
+        document.getElementById('result').innerHTML = "Error: Password and confirmed password do not match.";
+        return;
+      }
+  
+      const payload = { name, email, password, confirmed_password: confirm_password, type };
+  
+      try {
+        const token = localStorage.getItem("token");
+        const response = await fetch('http://localhost:3000/api/account', {
+          method: 'POST',
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+  
+        if (response.ok) {
+          const responseData = await response.json();
+          alert("Account created successfully!");
+          window.location.href="adminhome.html";
+        } else {
+          const errorData = await response.json();
+          const errorMessage = errorData.errors[0].msg;
+          alert(`Error creating account: ${errorMessage}`);
+          location.reload();
+        }
+      } catch (error) {
+        console.error(error);
+        alert('An error occurred while creating the account.');
+        location.reload();
+      }
+    }
+  </script>
+  
+</body>
+</html>

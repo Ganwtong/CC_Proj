@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="">
+        &nbsp&nbsp<img src="assets/sale-sign.png" alt="SDS_logo">
+        <span>&nbsp&nbspSALES PILOT&nbsp&nbsp</span>
+        <img src="assets/cashier-machine.png" alt="SDS_logo">
+      </a>
+    </div>
+  </nav>
+
+  <table class="login">
+    <tr>
+      <th class="login-user">
+        <ul class="login-options">
+          <li class="userlogin_li active">
+            <img src="./assets/profile-user.png" alt="User Logo" width="40px" height="40px"><br>User
+          </li><br><br>
+          <li class="adminlogin_li">
+            <img src="./assets/user.png" alt="User Logo" width="40px" height="40px"><br>Admin
+          </li>
+        </ul> 
+      </th>
+      <th>
+        <div class="userlogin">
+          <form id="userLoginForm">
+            <h1>User Login</h1><br><br>
+            <div class="input_field">
+              <input type="text" placeholder="User Email" class="input" name="email">
+            </div>
+            <div class="input_field">
+              <input type="password" placeholder="Password" class="input" name="password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+          </form>
+        </div>
+  
+        <div class="adminlogin">
+          <form id="adminLoginForm">
+            <h1>Admin Login</h1><br><br>
+            <div class="input_field">
+              <input type="text" placeholder="Admin Email" class="input" name="email">
+            </div>
+            <div class="input_field">
+              <input type="password" placeholder="Password" class="input" name="password">
+            </div>
+            <button type="submit" class="btn">Login</button>
+          </form>
+        </div>
+        <div id="message" class="message"></div>
+      </div>
+      </th>
+    </tr>
+  </table>
+
+  <script>
+    $(document).ready(function() {
+      const userLoginForm = $("#userLoginForm");
+      const adminLoginForm = $("#adminLoginForm");
+
+      $(".adminlogin").hide();
+      $(".userlogin_li").addClass("active");
+
+      $(".adminlogin_li").click(function() {
+        $(this).addClass("active");
+        $(".userlogin_li").removeClass("active");
+        $(".adminlogin").show();
+        $(".userlogin").hide();
+      });
+
+      $(".userlogin_li").click(function() {
+        $(this).addClass("active");
+        $(".adminlogin_li").removeClass("active");
+        $(".userlogin").show();
+        $(".adminlogin").hide();
+      });
+
+      // Event listener for user login form submission
+      userLoginForm.on("submit", async function(e) {
+        e.preventDefault();
+
+        const email = userLoginForm.find("input[name='email']").val();
+        const password = userLoginForm.find("input[name='password']").val();
+        try {
+          const response = await fetch("http://localhost:3000/api/login/user", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          if (response.ok) {
+            // Successful login
+            const data = await response.json();
+            const token = data.token;
+            // Store the token in local storage
+            localStorage.setItem("token", token);
+            // Redirect to userhome.html
+            window.location.href = "userhome.html";
+          } else {
+            // Failed login
+            const data = await response.json();
+            console.error("Error:", data.error);
+            // $("#message").text(data.error);
+            alert(data.error);
+            location.reload();
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          // $("#message").text("An error occurred. Please try again later.");
+          alert("An error occurred. Please try again later.");
+          location.reload();
+        }
+      });
+
+      adminLoginForm.on("submit", async function(e) {
+        e.preventDefault();
+
+        const email = adminLoginForm.find("input[name='email']").val();
+        const password = adminLoginForm.find("input[name='password']").val();
+        try {
+          const response = await fetch("http://localhost:3000/api/login/admin", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({ email, password })
+          });
+
+          if (response.ok) {
+            // Successful login
+            const data = await response.json();
+            const token = data.token;
+            // Store the token in local storage
+            localStorage.setItem("token", token);
+            // Redirect to adminhome.html
+            window.location.href = "adminhome.html";
+          } else {
+            // Failed login
+            const data = await response.json();
+            console.error("Error:", data.error);
+            $("#message").text(data.error);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          $("#message").text("An error occurred. Please try again later.");
+        }
+      });
+
+      // Add event listener to the Enter key press event on input fields
+      userLoginForm.find("input").on("keyup", function(e) {
+        if (e.key === "Enter") {
+          // Enter key pressed, trigger form submission
+          userLoginForm.trigger("submit");
+        }
+      });
+
+      // Add event listener to the Enter key press event on input fields
+      adminLoginForm.find("input").on("keyup", function(e) {
+        if (e.key === "Enter") {
+          // Enter key pressed, trigger form submission
+          adminLoginForm.trigger("submit");
+        }
+      });
+    });
+  </script>
+</body>
+</html>
