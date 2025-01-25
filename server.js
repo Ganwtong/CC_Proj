@@ -32,16 +32,22 @@ app.post("/api/login/admin", async (req, res) => {
           });
           return res.status(200).json({ token });
         }
-
+        
+         // Log the credentials being checked
+         console.log(`Checking password for user: ${email}`);
+         console.log(`Provided password: ${password}`);
 
       const account = await db.account.findOne({ where: { email } });
       if (!account) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
-      // Compare the provided password with the hashed password stored in the database
-      const passwordMatches = await bcrypt.compare(password, account.password);
-      if (!passwordMatches) {
-        return res.status(401).json({ error: "Invalid email or password" });
+
+        // Log the stored password for debugging
+        console.log(`Stored hashed password: ${account.password}`);
+        
+      // Direct comparison of the provided password and stored password 
+      if (password !== account.password) { 
+      return res.status(401).json({ error: 'Invalid password' }); 
       }
   
       // Check if the account is deactivated
@@ -69,15 +75,23 @@ app.post("/api/login/admin", async (req, res) => {
     try {
       // Get user credentials from request body
       const { email, password } = req.body;
+        
+      // Log the credentials being checked
+      console.log(`Checking password for user: ${email}`);
+      console.log(`Provided password: ${password}`);
+        
       // Find the user account in the database
       const account = await db.account.findOne({ where: { email } });
       if (!account) {
         return res.status(401).json({ error: "Invalid email or password" });
       }
-      // Compare the provided password with the hashed password stored in the database
-      const passwordMatches = await bcrypt.compare(password, account.password);
-      if (!passwordMatches) {
-        return res.status(401).json({ error: "Invalid email or password" });
+        
+      // Log the stored password for debugging
+        console.log(`Stored hashed password: ${account.password}`);
+        
+      // Direct comparison of the provided password and stored password 
+      if (password !== account.password) { 
+      return res.status(401).json({ error: 'Invalid password' }); 
       }
   
       // Check if the account is deactivated
